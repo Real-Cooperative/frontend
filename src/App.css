@@ -1,12 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
 * {
-    --main-color: #fff;
+    --main-color: #e3dff2;
     --secondary-color: #000;
-    --accent-color: #a8bfff;
+    --accent-color: #7df9ff;
+    --link-accent-color: #ffff00;
+    --white-color: #fff;
+    --error-color: #ff4911;
+    --success-color: #2fff2f;
 }
 
 body {
     margin: 0;
     padding: 0;
+    background: var(--main-color);
 }
 
 p {
@@ -14,6 +21,81 @@ p {
     padding: 0;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label,
+input,
+textarea,
+select,
+option,
+button,
+a,
+p,
+span,
+div,
+li,
+ul,
+ol {
+    font-family: "Lexend Deca", sans-serif;
+    color: var(--secondary-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button,
+strong,
+b {
+    font-weight: 400;
+}
+
+label,
+input,
+textarea,
+select,
+option,
+a,
+p,
+span,
+div,
+li,
+ul,
+ol {
+    font-weight: 200;
+}
+
+a:hover > * > *,
+a:hover > *,
+a:hover {
+    color: var(--accent-color);
+}
+
+button {
+    width: fit-content;
+    padding: 10px;
+    background-color: var(--white-color);
+    border: var(--secondary-color) 2px solid;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    position: relative;
+    transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+    box-shadow: inset 5px 5px var(--white-color),
+        7px 7px 0px 0px var(--accent-color);
+    background: var(--accent-color);
+}
 #root {
     display: flex;
     flex-direction: column;
@@ -25,6 +107,13 @@ p {
     display: flex;
     flex-direction: row;
     gap: 15px;
+    margin: 20px 0;
+}
+
+#root > div {
+    background: var(--white-color);
+    padding: 20px;
+    border: 2px var(--secondary-color) solid;
 }
 
 .pagination-container {
@@ -36,15 +125,16 @@ p {
 }
 
 .pagination-container .pagination-button {
-    background-color: var(--main-color);
     color: var(--secondary-color);
     border: 1px solid var(--secondary-color);
     padding: 15px 20px;
+    transition: all 0.2s ease-in-out;
 }
 
 .pagination-container .pagination-button:not(.disabled):hover {
-    background-color: var(--secondary-color);
-    color: var(--main-color);
+    box-shadow: inset 5px 5px var(--white-color),
+        7px 7px 0px 0px var(--link-accent-color);
+    background: var(--link-accent-color);
 }
 
 .pagination-container .pagination-button.disabled {

@@ -19,6 +19,14 @@ const Ingredient = (props) => {
     }, []);
     return (
         <div className="object-array deletable">
+            <div className="tool-buttons">
+                <button
+                    className="delete-button"
+                    type="button"
+                    onClick={() => deleteIngredient(ingredientKey)}>
+                    X
+                </button>
+            </div>
             <div className="content">
                 <div className="form-group">
                     <input
@@ -35,6 +43,7 @@ const Ingredient = (props) => {
                         required
                         id={"quantity-" + ingredientKey}
                         min={0}
+                        step={"any"}
                         type="number"
                         name={"ingredient-" + ingredientKey}
                         placeholder="0"
@@ -62,13 +71,6 @@ const Ingredient = (props) => {
                     />
                     <label htmlFor={"type-" + ingredientKey}>Type</label>
                 </div>
-            </div>
-            <div className="tool-buttons">
-                <button
-                    type="button"
-                    onClick={() => deleteIngredient(ingredientKey)}>
-                    Delete
-                </button>
             </div>
         </div>
     );

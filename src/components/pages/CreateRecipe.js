@@ -129,11 +129,14 @@ const CreateRecipe = () => {
 
     return (
         <div>
+            <h1>Create a Recipe</h1>
             <form onSubmit={handleSubmit}>
                 <div className="form-header">
                     <div className="form-header--col">
-                        <label htmlFor="name">Name</label>
-                        <input required id="name" type="text" name="name" />
+                        <div className="form-group">
+                            <input required id="name" type="text" name="name" />
+                            <label htmlFor="name">Name</label>
+                        </div>
                         <label htmlFor="description">Description</label>
                         <textarea
                             rows={4}
@@ -144,21 +147,23 @@ const CreateRecipe = () => {
                     </div>
                     <DragNDrop />
                 </div>
-                <label>Ingredients</label>
+                <h3>Ingredients</h3>
                 {ingredients}
                 <button type="button" onClick={() => addIngredient()}>
                     Add Ingredient
                 </button>
-                <label>Steps</label>
+                <h3>Steps</h3>
                 {steps}
                 <button type="button" onClick={() => addStep()}>
                     Add Step
                 </button>
                 <button type="submit">Submit</button>
             </form>
-            <a href={recipeURL}>
-                <p>view your recipe</p>
-            </a>
+            {recipeURL ? (
+                <a href={recipeURL}>
+                    <p>view your recipe</p>
+                </a>
+            ) : null}
         </div>
     );
 };

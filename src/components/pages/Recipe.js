@@ -31,6 +31,7 @@ const Recipe = () => {
 
     return (
         <div>
+            <a href="/recipe">View all Recipes</a>
             <h1>{recipe.name}</h1>
             {recipe.recipe ? <h2>Recipes using this recipe</h2> : null}
             {recipe.recipe

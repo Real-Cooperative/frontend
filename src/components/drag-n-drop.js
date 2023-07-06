@@ -47,8 +47,11 @@ const DragNDrop = () => {
         return (
             <div className="attachment" key={key}>
                 <img height={150} src={b64} alt="attachment preview" />
-                <button type="button" onClick={() => deleteAttachment(key)}>
-                    Delete
+                <button
+                    className="delete-button"
+                    type="button"
+                    onClick={() => deleteAttachment(key)}>
+                    X
                 </button>
             </div>
         );

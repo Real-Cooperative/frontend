@@ -15,6 +15,18 @@ const Step = (props) => {
 
     return (
         <div data-key={props.index} className="string-array deletable">
+            <div className="tool-buttons">
+                <button
+                    className="delete-button"
+                    type="button"
+                    onClick={() =>
+                        props.deleteStep(
+                            recipeContext.steps.indexOf(props.index)
+                        )
+                    }>
+                    X
+                </button>
+            </div>
             <div className="content">
                 <label className="step-key">
                     Step{" "}
@@ -29,17 +41,6 @@ const Step = (props) => {
                     type="text"
                     name="steps"
                 />
-            </div>
-            <div className="tool-buttons">
-                <button
-                    type="button"
-                    onClick={() =>
-                        props.deleteStep(
-                            recipeContext.steps.indexOf(props.index)
-                        )
-                    }>
-                    Delete
-                </button>
             </div>
         </div>
     );
