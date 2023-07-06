@@ -1,0 +1,36 @@
+.json-gui-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+    border-left: var(--secondary-color) 1px solid;
+    padding-left: 5px;
+}
+
+.json-gui-container > label {
+    width: fit-content;
+}
+
+.json-gui-container--add {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 5px 0;
+    gap: 5px;
+}
+
+.json-gui-container--btn {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--secondary-color);
+    cursor: pointer;
+}
+
+.plus {
+    background: linear-gradient(var(--main-color), var(--main-color)),
+        linear-gradient(var(--main-color), var(--main-color)),
+        var(--accent-color);
+    background-position: center;
+    background-size: 50% 10%, 10% 50%;
+    background-repeat: no-repeat;
+}

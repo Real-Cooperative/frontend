@@ -1,0 +1,52 @@
+* {
+    --main-color: #fff;
+    --secondary-color: #000;
+    --accent-color: #a8bfff;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 0 20px;
+}
+
+.navbar-container {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.pagination-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.pagination-container .pagination-button {
+    background-color: var(--main-color);
+    color: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
+    padding: 15px 20px;
+}
+
+.pagination-container .pagination-button:not(.disabled):hover {
+    background-color: var(--secondary-color);
+    color: var(--main-color);
+}
+
+.pagination-container .pagination-button.disabled {
+    opacity: 0.5;
+}
