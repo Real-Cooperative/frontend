@@ -43,16 +43,20 @@ const RecipeList = () => {
                 limit={parseInt(searchParams.get("limit")) || 10}
                 total={total}
             />
-            {recipeList.map((recipe, index) => {
-                return (
-                    <div key={index}>
-                        <a href={`/${recipe.id.replace(":", "/")}`}>
-                            <h2>{recipe.name}</h2>
-                        </a>
-                        <p>{recipe.description}</p>
-                    </div>
-                );
-            })}
+            {recipeList.length > 0 ? (
+                recipeList.map((recipe, index) => {
+                    return (
+                        <div key={index}>
+                            <a href={`/${recipe.id.replace(":", "/")}`}>
+                                <h2>{recipe.name}</h2>
+                            </a>
+                            <p>{recipe.description}</p>
+                        </div>
+                    );
+                })
+            ) : (
+                <h2>Sorry nothing but us chickens</h2>
+            )}
             <Pagination
                 page={parseInt(searchParams.get("page")) || 1}
                 limit={parseInt(searchParams.get("limit")) || 10}
