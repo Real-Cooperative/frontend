@@ -1,70 +1,3 @@
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-input {
-    margin: 10px 0;
-    transition: box-shadow 0.2s ease-in-out;
-    border: 2px solid var(--secondary-color);
-}
-
-input:focus {
-    box-shadow: 8px 8px 0px 0px var(--success-color);
-}
-
-input:focus-visible {
-    outline: unset;
-}
-
-input:invalid:focus {
-    box-shadow: 8px 8px 0px 0px var(--error-color);
-}
-
-textarea {
-    resize: vertical;
-    width: 100%;
-    transition: box-shadow 0.2s ease-in-out;
-    border: 2px solid var(--secondary-color);
-}
-
-textarea:focus {
-    box-shadow: 8px 8px 0px 0px var(--success-color);
-}
-
-textarea:focus-visible {
-    outline: unset;
-}
-
-.form-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 15px;
-}
-
-.form-header--col {
-    display: flex;
-    width: 50%;
-    margin: auto 0;
-    flex-direction: column;
-}
-
-@media screen and (max-width: 768px) {
-    .form-header {
-        flex-direction: column;
-    }
-
-    .form-header--col {
-        width: 100%;
-    }
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column-reverse;
-}
-
 .drag-drop {
     display: flex;
     flex-direction: column;
@@ -89,12 +22,6 @@ textarea:focus-visible {
     display: flex;
     flex-direction: column;
     padding-top: 25px;
-}
-
-input[required] + label::after {
-    content: " *";
-    font-weight: bold;
-    color: var(--error-color);
 }
 
 .string-array {
