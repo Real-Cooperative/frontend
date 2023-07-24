@@ -62,12 +62,13 @@ const Ingredient = (props) => {
                     />
                     <label htmlFor={"unit-" + ingredientKey}>Unit</label>
                 </div>
-                <div className="form-group">
+                <div className="hidden form-group">
                     <input
                         id={"type-" + ingredientKey}
                         type="text"
                         name={"ingredient-" + ingredientKey}
                         placeholder="eg. vegetable, dairy, meat"
+                        defaultValue={"ingredient"}
                     />
                     <label htmlFor={"type-" + ingredientKey}>Type</label>
                 </div>
