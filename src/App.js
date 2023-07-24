@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import Navbar from "./components/navbar";
 import { Home, Recipe, RecipeList, CreateRecipe } from "./components/pages";
+import Account from "./components/pages/Account";
+import UserDetails from "./components/pages/UserDetails";
+import Ingredient from "./components/pages/IngredientPage";
 
 const App = () => {
     return (
@@ -12,6 +15,9 @@ const App = () => {
                 <Route path="/recipe/:id" element={<Recipe />} />
                 <Route path="/recipe" element={<RecipeList />} />
                 <Route path="/create-recipe" element={<CreateRecipe />} />
+                <Route path="/account" element={<Account />} />
+                <Route path="/user/:user" element={<UserDetails />} />
+                <Route path="/:type/:name" element={<Ingredient />} />
             </Routes>
         </Router>
     );

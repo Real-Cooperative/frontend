@@ -1,12 +1,15 @@
 import React, { useState, useContext, useEffect, useCallback } from "react";
 import "./CreateRecipe.css";
 import { RecipeContext } from "../../context/recipeContext";
+import { UserContext } from "../../context/userContext";
 import Step from "../step";
 import Ingredient from "../ingredient";
 import DragNDrop from "../drag-n-drop";
 
 const CreateRecipe = () => {
     const [recipeContext, setRecipeContext] = useContext(RecipeContext);
+    const [userContext, setUserContext] = useContext(UserContext);
+    const [loading, setLoading] = useState(true);
     const [ingredients, setIngredients] = useState([]);
     const [steps, setSteps] = useState([]);
     const [stepKey, setStepKey] = useState(0);
@@ -23,6 +26,14 @@ const CreateRecipe = () => {
         addIngredient();
         addStep();
     }, []);
+
+    useEffect(() => {
+        if (userContext) {
+            setLoading(false);
+        } else if (userContext === null) {
+            setLoading(false);
+        }
+    }, [userContext]);
 
     function addIngredient() {
         setIngredients([
@@ -90,13 +101,14 @@ const CreateRecipe = () => {
                 data[objectKey][objectIndex] = object;
             } else if (typeof value == "object") {
                 data[key] = data[key] ? data[key] : [];
-                data[key] = [...data[key], await uploadFiles(value)];
+                if (key.size > 0) {
+                    data[key] = [...data[key], await uploadFiles(value)];
+                }
             } else {
                 data[key] = value;
             }
         }
         data["type"] = "recipe";
-
         submitRecipe(data);
     };
 
@@ -104,9 +116,13 @@ const CreateRecipe = () => {
         let attachment = {};
         let formData = new FormData();
         formData.append("attachment", form);
+        let token = localStorage.getItem("token");
         await fetch(`${process.env.REACT_APP_MIDDLEWARE_URL}/upload`, {
             cache: "no-store",
             method: "POST",
+            headers: {
+                Authentication: "Bearer " + token,
+            },
             body: formData,
         })
             .then((res) => res.text())
@@ -117,53 +133,65 @@ const CreateRecipe = () => {
 
     const submitRecipe = async (form) => {
         let url = `${process.env.REACT_APP_MIDDLEWARE_URL}/post`;
+        let token = localStorage.getItem("token");
         let response = await fetch(url, {
             method: "POST",
+            cache: "no-cache",
+            headers: {
+                Authentication: "Bearer " + token,
+            },
             body: JSON.stringify(form),
         });
         let data = await response.json();
-        console.log(data);
         let newRecipeURL = `/${data.id.replace(":", "/")}`;
         setRecipeURL(newRecipeURL);
     };
 
     return (
         <div>
-            <h1>Create a Recipe</h1>
-            <form onSubmit={handleSubmit}>
-                <div className="form-header">
-                    <div className="form-header--col">
-                        <div className="form-group">
-                            <input required id="name" type="text" name="name" />
-                            <label htmlFor="name">Name</label>
+            {!loading && userContext ? (
+                <>
+                    <h1>Create a Recipe</h1>
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-header">
+                            <div className="form-header--col">
+                                <div className="form-group">
+                                    <input
+                                        required
+                                        id="name"
+                                        type="text"
+                                        name="name"
+                                    />
+                                    <label htmlFor="name">Name</label>
+                                </div>
+                                <label htmlFor="description">Description</label>
+                                <textarea
+                                    rows={4}
+                                    id="description"
+                                    type="text"
+                                    name="description"
+                                />
+                            </div>
+                            <DragNDrop />
                         </div>
-                        <label htmlFor="description">Description</label>
-                        <textarea
-                            rows={4}
-                            id="description"
-                            type="text"
-                            name="description"
-                        />
-                    </div>
-                    <DragNDrop />
-                </div>
-                <h3>Ingredients</h3>
-                {ingredients}
-                <button type="button" onClick={() => addIngredient()}>
-                    Add Ingredient
-                </button>
-                <h3>Steps</h3>
-                {steps}
-                <button type="button" onClick={() => addStep()}>
-                    Add Step
-                </button>
-                <button type="submit">Submit</button>
-            </form>
-            {recipeURL ? (
-                <a href={recipeURL}>
-                    <p>view your recipe</p>
-                </a>
-            ) : null}
+                        <h3>Ingredients</h3>
+                        {ingredients}
+                        <button type="button" onClick={() => addIngredient()}>
+                            Add Ingredient
+                        </button>
+                        <h3>Steps</h3>
+                        {steps}
+                        <button type="button" onClick={() => addStep()}>
+                            Add Step
+                        </button>
+                        <button type="submit">Submit</button>
+                    </form>
+                </>
+            ) : loading ? (
+                <h1>Loading</h1>
+            ) : (
+                <a href="/account">Please login</a>
+            )}
         </div>
     );
 };

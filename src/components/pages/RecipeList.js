@@ -1,39 +1,44 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useSearchParams } from "react-router-dom";
 import Pagination from "../pagination";
+import { UserContext } from "../../context/userContext";
 
 const RecipeList = () => {
     const [recipeList, setRecipeList] = useState([]);
     const [total, setTotal] = useState(0);
     const [searchParams, setSearchParams] = useSearchParams();
-
-    const getRecipeList = useCallback(async () => {
-        try {
-            const body = JSON.stringify({
-                id: "recipe",
-                page: parseInt(searchParams.get("page")) || 1,
-                limit: parseInt(searchParams.get("limit")) || 10,
-            });
-            const response = await fetch(
-                `${process.env.REACT_APP_MIDDLEWARE_URL}/get`,
-                {
-                    method: "POST",
-                    body: body,
-                }
-            );
-
-            const data = await response.json();
-            setRecipeList(data.page);
-            setTotal(data.count);
-            console.log(data);
-        } catch (error) {
-            console.log(error);
-        }
-    }, []);
+    const [userContext, setUserContext] = useContext(UserContext);
 
     useEffect(() => {
+        const getRecipeList = async () => {
+            try {
+                const response = await fetch(
+                    `${process.env.REACT_APP_MIDDLEWARE_URL}/get`,
+                    {
+                        method: "GET",
+                        headers: {
+                            "x-rciad-requested-id": "recipe",
+                            "x-rciad-page":
+                                parseInt(searchParams.get("page")) || 1,
+                            "x-rciad-limit":
+                                parseInt(searchParams.get("limit")) || 10,
+                            "x-rciad-subscribed": userContext.subscriptions
+                                ? userContext.subscriptions.toString()
+                                : "",
+                        },
+                    }
+                );
+
+                const data = await response.json();
+                setRecipeList(data.page);
+                setTotal(data.count);
+                console.log(data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
         getRecipeList();
-    }, [getRecipeList]);
+    }, []);
 
     return (
         <div>
