@@ -50,7 +50,7 @@ const UserDetails = () => {
     useEffect(() => {
         const getUser = async () => {
             const headers = {
-                "x-rciad-requested-id": user,
+                "x-rciad-requested-user": user,
             };
 
             const response = await fetch(
@@ -68,7 +68,7 @@ const UserDetails = () => {
     }, []);
 
     return (
-        <div>
+        <div className="card">
             <h1>{userInfo.user}</h1>
             <button onClick={handleSubscription}>Subscribe</button>
             <p>

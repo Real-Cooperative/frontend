@@ -36,7 +36,7 @@ const Account = () => {
     }, [userContext]);
 
     return (
-        <div className="account-container">
+        <div className="account-container card">
             {userContext && !loading ? (
                 <MyDetails user={userContext} />
             ) : !loading ? (

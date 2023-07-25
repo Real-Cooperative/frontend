@@ -148,7 +148,7 @@ const CreateRecipe = () => {
     };
 
     return (
-        <div>
+        <div className="card">
             {!loading && userContext ? (
                 <>
                     <h1>Create a Recipe</h1>

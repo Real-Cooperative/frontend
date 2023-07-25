@@ -55,6 +55,7 @@ button,
 strong,
 b {
     font-weight: 400;
+    margin: unset;
 }
 
 label,
@@ -187,12 +188,6 @@ textarea:focus-visible {
     margin: 20px 0;
 }
 
-#root > div {
-    background: var(--white-color);
-    padding: 20px;
-    border: 2px var(--secondary-color) solid;
-}
-
 .pagination-container {
     display: flex;
     flex-direction: row;
@@ -242,6 +237,13 @@ textarea:focus-visible {
     box-shadow: inset 5px 5px var(--white-color),
         7px 7px 0px 0px var(--tertiary-color);
     background: var(--tertiary-color);
+}
+
+.card {
+    margin: 20px 0;
+    background: var(--white-color);
+    padding: 20px;
+    border: 2px var(--secondary-color) solid;
 }
 
 .hidden {
