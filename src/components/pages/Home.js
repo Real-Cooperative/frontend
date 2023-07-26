@@ -1,13 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import { UserContext } from "../../context/userContext";
+import RecipeList from "./RecipeList";
+import Account from "./Account";
 
 const Home = () => {
-    return (
-        <div className="card">
-            <h1>Home</h1>
-            <a href="/recipe">View all Recipes</a>
-            <a href="/create-recipe">Create a Recipe</a>
-        </div>
-    );
+    const [userContext, setUserContext] = useContext(UserContext);
+    return <>{userContext ? <RecipeList /> : <Account />}</>;
 };
 
 export default Home;
