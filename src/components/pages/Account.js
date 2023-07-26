@@ -3,6 +3,7 @@ import Login from "../login";
 import Signup from "../signup";
 import MyDetails from "../MyDetails";
 import { UserContext } from "../../context/userContext";
+import Loading from "../Loading";
 
 const Account = () => {
     const [activeTab, setActiveTab] = useState("login");
@@ -69,7 +70,7 @@ const Account = () => {
                     {activeTab === "login" ? <Login /> : <Signup />}
                 </>
             ) : (
-                <p>Loading...</p>
+                <Loading />
             )}
         </div>
     );

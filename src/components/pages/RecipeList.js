@@ -2,14 +2,15 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import { UserContext } from "../../context/userContext";
 import RecipeCard from "../recipeCard";
+import Loading from "../Loading";
 
 const RecipeList = ({ user }) => {
     const [recipeList, setRecipeList] = useState([]);
     const [total, setTotal] = useState(13);
-    const [searchParams, setSearchParams] = useSearchParams();
     const [userContext, setUserContext] = useContext(UserContext);
     const observerTarget = useRef(null);
     const [pageNumber, setPageNumber] = useState(1);
+    const [loading, setLoading] = useState(true);
 
     const fetchData = async (page) => {
         try {
@@ -36,6 +37,8 @@ const RecipeList = ({ user }) => {
             setTotal(data.count);
         } catch (error) {
             console.log(error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -76,8 +79,10 @@ const RecipeList = ({ user }) => {
                         <RecipeCard key={index} recipe={recipe} />
                     ))}
                 </>
-            ) : (
+            ) : !loading ? (
                 <h2>Sorry nothing but us chickens</h2>
+            ) : (
+                <Loading />
             )}
             <div ref={observerTarget}></div>
         </div>

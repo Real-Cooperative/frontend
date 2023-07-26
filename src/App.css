@@ -249,3 +249,44 @@ textarea:focus-visible {
 .hidden {
     display: none;
 }
+
+.loading-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    height: 40px;
+}
+
+.loading-container > div[class|="loading"] {
+    width: 20px;
+    height: 30px;
+    background: var(--tertiary-color);
+}
+
+.loading-container > div[class|="loading"]:nth-child(1) {
+    animation: loading 1s ease-in-out infinite;
+}
+
+.loading-container > div[class|="loading"]:nth-child(2) {
+    animation: loading 1s ease-in-out infinite 0.25s;
+}
+
+.loading-container > div[class|="loading"]:nth-child(3) {
+    animation: loading 1s ease-in-out infinite 0.5s;
+}
+
+@keyframes loading {
+    0% {
+        margin-top: 0px;
+        opacity: 1;
+    }
+    50% {
+        margin-top: -10px;
+        opacity: 0;
+    }
+    100% {
+        margin-top: 0px;
+        opacity: 1;
+    }
+}
