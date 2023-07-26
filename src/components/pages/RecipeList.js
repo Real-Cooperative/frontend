@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { UserContext } from "../../context/userContext";
 import RecipeCard from "../recipeCard";
 
-const RecipeList = () => {
+const RecipeList = ({ user }) => {
     const [recipeList, setRecipeList] = useState([]);
     const [total, setTotal] = useState(13);
     const [searchParams, setSearchParams] = useSearchParams();
@@ -17,12 +17,14 @@ const RecipeList = () => {
                 `${process.env.REACT_APP_MIDDLEWARE_URL}/get`,
                 {
                     method: "GET",
+                    cache: "no-cache",
                     headers: {
                         "x-rciad-requested-id": "recipe",
                         "x-rciad-page": page,
-                        "x-rciad-limit":
-                            parseInt(searchParams.get("limit")) || 10,
-                        "x-rciad-subscribed": userContext.subscriptions
+                        "x-rciad-limit": 6,
+                        "x-rciad-subscribed": user
+                            ? user
+                            : userContext.subscriptions
                             ? userContext.subscriptions.toString()
                             : "",
                     },
@@ -68,7 +70,6 @@ const RecipeList = () => {
 
     return (
         <div id="scrollArea">
-            <h1>Recipe List</h1>
             {recipeList.length > 0 ? (
                 <>
                     {recipeList.map((recipe, index) => (

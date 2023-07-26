@@ -1,6 +1,7 @@
 import React, { useCallback, useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { UserContext } from "../../context/userContext";
+import RecipeList from "./RecipeList";
 
 const UserDetails = () => {
     const [userInfo, setUserInfo] = useState({});
@@ -68,16 +69,19 @@ const UserDetails = () => {
     }, []);
 
     return (
-        <div className="card">
-            <h1>{userInfo.user}</h1>
-            <button onClick={handleSubscription}>Subscribe</button>
-            <p>
-                Member Since:{" "}
-                {new Date(userInfo.created)
-                    .toDateString()
-                    .replace(/^\S+\s/, "")}
-            </p>
-        </div>
+        <>
+            <div className="card">
+                <h1>{userInfo.user}</h1>
+                <button onClick={handleSubscription}>Subscribe</button>
+                <p>
+                    Member Since:{" "}
+                    {new Date(userInfo.created)
+                        .toDateString()
+                        .replace(/^\S+\s/, "")}
+                </p>
+            </div>
+            {userInfo.id && <RecipeList user={userInfo.id} />}
+        </>
     );
 };
 
