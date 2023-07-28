@@ -1,24 +1,32 @@
 import React, { useState } from "react";
+import Loading from "./Loading";
 
 const Login = () => {
     const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const form = new FormData(e.target);
-        const data = Object.fromEntries(form.entries());
-        let url = `${process.env.REACT_APP_MIDDLEWARE_URL}/login`;
-        let response = await fetch(url, {
-            method: "POST",
-            body: JSON.stringify(data),
-        });
-        let res = await response.json();
-        console.log(res);
-        if (res.token) {
-            localStorage.setItem("token", res.token);
-            window.location.reload();
+        setLoading(true);
+        try {
+            const form = new FormData(e.target);
+            const data = Object.fromEntries(form.entries());
+            let url = `${process.env.REACT_APP_MIDDLEWARE_URL}/login`;
+            let response = await fetch(url, {
+                method: "POST",
+                body: JSON.stringify(data),
+            });
+            let res = await response.json();
+            if (res.token) {
+                localStorage.setItem("token", res.token);
+                window.location.reload();
+            }
+            setMessage(res.message);
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setLoading(false);
         }
-        setMessage(res.message);
     };
 
     return (
@@ -39,7 +47,7 @@ const Login = () => {
                     <label htmlFor="password">Password</label>
                 </div>
                 <p>{message}</p>
-                <button type="submit">Login</button>
+                {loading ? <Loading /> : <button type="submit">Login</button>}
             </form>
         </div>
     );

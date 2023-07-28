@@ -25,7 +25,7 @@ const RecipeList = ({ user }) => {
                         "x-rciad-limit": 6,
                         "x-rciad-subscribed": user
                             ? user
-                            : userContext.subscriptions
+                            : userContext
                             ? userContext.subscriptions.toString()
                             : "",
                     },
@@ -73,7 +73,7 @@ const RecipeList = ({ user }) => {
 
     return (
         <div id="scrollArea">
-            {recipeList.length > 0 ? (
+            {(recipeList.length > 0) & !loading ? (
                 <>
                     {recipeList.map((recipe, index) => (
                         <RecipeCard key={index} recipe={recipe} />
@@ -81,9 +81,7 @@ const RecipeList = ({ user }) => {
                 </>
             ) : !loading ? (
                 <h2>Sorry nothing but us chickens</h2>
-            ) : (
-                <Loading />
-            )}
+            ) : null}
             <div ref={observerTarget}></div>
         </div>
     );

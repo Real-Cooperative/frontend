@@ -1,23 +1,82 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import Navbar from "./components/navbar";
 import { Home, Recipe, RecipeList, CreateRecipe } from "./components/pages";
-import Account from "./components/pages/Account";
-import UserDetails from "./components/pages/UserDetails";
-import Ingredient from "./components/pages/IngredientPage";
+const Account = lazy(() => import("./components/pages/Account"));
+const UserDetails = lazy(() => import("./components/pages/UserDetails"));
+const Ingredient = lazy(() => import("./components/pages/IngredientPage"));
+const ResetPassword = lazy(() => import("./components/pages/ResetPassword"));
+import Loading from "./components/Loading";
 
 const App = () => {
     return (
         <Router>
             <Navbar />
             <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/recipe/:id" element={<Recipe />} />
-                <Route path="/recipe" element={<RecipeList />} />
-                <Route path="/create-recipe" element={<CreateRecipe />} />
-                <Route path="/account" element={<Account />} />
-                <Route path="/user/:user" element={<UserDetails />} />
-                <Route path="/:type/:name" element={<Ingredient />} />
+                <Route
+                    path="/"
+                    element={
+                        <Suspense fallback={<Loading />}>
+                            <Home />{" "}
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path="/recipe/:id"
+                    element={
+                        <Suspense fallback={<Loading />}>
+                            <Recipe />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path="/recipe"
+                    element={
+                        <Suspense fallback={<Loading />}>
+                            <RecipeList />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path="/create-recipe"
+                    element={
+                        <Suspense fallback={<Loading />}>
+                            <CreateRecipe />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path="/account"
+                    element={
+                        <Suspense fallback={<Loading />}>
+                            <Account />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path="/forgot"
+                    element={
+                        <Suspense fallback={<Loading />}>
+                            <ResetPassword />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path="/user/:user"
+                    element={
+                        <Suspense fallback={<Loading />}>
+                            <UserDetails />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path="/:type/:name"
+                    element={
+                        <Suspense fallback={<Loading />}>
+                            <Ingredient />
+                        </Suspense>
+                    }
+                />
             </Routes>
         </Router>
     );

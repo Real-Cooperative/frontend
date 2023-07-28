@@ -32,12 +32,10 @@ const Recipe = () => {
         getRecipe();
     }, []);
 
-    return loading ? (
-        <Loading />
-    ) : (
+    return (
         <div className="card">
             <a href="/recipe">View all Recipes</a>
-            <h1>{recipe.name}</h1>
+            <h1>{recipe.name && recipe.name}</h1>
             {recipe.recipe && <h2>Recipes using this recipe</h2>}
             {recipe.recipe &&
                 recipe.recipe.map((recipe, index) => {

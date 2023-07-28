@@ -40,7 +40,7 @@ const Account = () => {
         <div className="account-container card">
             {userContext && !loading ? (
                 <MyDetails user={userContext} />
-            ) : !loading ? (
+            ) : (
                 <>
                     <div className="tabs">
                         <div
@@ -69,8 +69,6 @@ const Account = () => {
 
                     {activeTab === "login" ? <Login /> : <Signup />}
                 </>
-            ) : (
-                <Loading />
             )}
         </div>
     );

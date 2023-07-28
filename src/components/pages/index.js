@@ -1,6 +1,7 @@
-import CreateRecipe from "./CreateRecipe";
-import Recipe from "./Recipe";
-import RecipeList from "./RecipeList";
-import Home from "./Home";
+import { lazy } from "react";
+const CreateRecipe = lazy(() => import("./CreateRecipe"));
+const Recipe = lazy(() => import("./Recipe"));
+const RecipeList = lazy(() => import("./RecipeList"));
+const Home = lazy(() => import("./Home"));
 
 export { CreateRecipe, Recipe, RecipeList, Home };
