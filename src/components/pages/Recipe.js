@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Loading from "../Loading";
 
 const Recipe = () => {
     const [recipe, setRecipe] = useState({});
+    const [loading, setLoading] = useState(true);
 
     const params = useParams();
 
@@ -23,12 +25,16 @@ const Recipe = () => {
                 setRecipe(data.page[0]);
             } catch (error) {
                 console.log(error);
+            } finally {
+                setLoading(false);
             }
         };
         getRecipe();
     }, []);
 
-    return (
+    return loading ? (
+        <Loading />
+    ) : (
         <div className="card">
             <a href="/recipe">View all Recipes</a>
             <h1>{recipe.name}</h1>
