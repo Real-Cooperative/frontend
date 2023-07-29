@@ -68,10 +68,15 @@ const Recipe = () => {
             </ul>
             {recipe.steps && <h2>Steps</h2>}
             <ol>
-                {recipe.steps &&
-                    recipe.steps.map((step, index) => {
-                        return <li key={index}>{step}</li>;
-                    })}
+                {recipe.steps ? (
+                    typeof recipe.steps === "string" ? (
+                        <li>{recipe.steps}</li>
+                    ) : (
+                        recipe.steps.map((step, index) => {
+                            return <li key={index}>{step}</li>;
+                        })
+                    )
+                ) : null}
             </ol>
             {recipe.attachments && <h2>Media</h2>}
             {recipe.attachments &&
