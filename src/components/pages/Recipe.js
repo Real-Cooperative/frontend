@@ -93,9 +93,17 @@ const Recipe = () => {
                     recipe.ingredient.map((ingredient, index) => {
                         return (
                             <li key={index}>
-                                <a href={`/${ingredient.id.replace(":", "/")}`}>
-                                    {ingredient.name}
-                                </a>
+                                <p>
+                                    {ingredient.quantity && ingredient.quantity}{" "}
+                                    {ingredient.unit && ingredient.unit}{" "}
+                                    <a
+                                        href={`/${ingredient.id.replace(
+                                            ":",
+                                            "/"
+                                        )}`}>
+                                        {ingredient.name}
+                                    </a>
+                                </p>
                             </li>
                         );
                     })}
