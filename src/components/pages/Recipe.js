@@ -54,7 +54,7 @@ const Recipe = () => {
         getUser();
     }, [recipe.created_by]);
 
-    return (
+    return !loading ? (
         <div className="card">
             <a href="/recipe">
                 <p>View all Recipes</p>
@@ -124,6 +124,8 @@ const Recipe = () => {
                     );
                 })}
         </div>
+    ) : (
+        <Loading />
     );
 };
 
