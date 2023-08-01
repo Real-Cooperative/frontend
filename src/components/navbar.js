@@ -1,13 +1,18 @@
-import React, { useContext, useEffect } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../context/userContext";
 
 const Navbar = () => {
     const [userContext, setUserContext] = useContext(UserContext);
-    useEffect(() => {
-        const getMe = async () => {
+    const [loading, setLoading] = useState(true);
+
+    const getMe = useCallback(async (token) => {
+        try {
+            if (!token) {
+                return;
+            }
             let url = `${process.env.REACT_APP_MIDDLEWARE_URL}/me`;
-            let token = localStorage.getItem("token");
+
             let response = await fetch(url, {
                 method: "GET",
                 headers: {
@@ -17,8 +22,13 @@ const Navbar = () => {
             let { details } = await response.json();
             console.log(details);
             setUserContext(details);
-        };
-        getMe();
+        } catch (error) {
+            console.log(error);
+        }
+    });
+    useEffect(() => {
+        getMe(localStorage.getItem("token"));
+        setLoading(false);
     }, []);
 
     return (
@@ -40,7 +50,9 @@ const Navbar = () => {
             </Link>
             <Link to="/account">
                 <div className="navbar-button">
-                    <p>{userContext ? userContext.user : "Login"}</p>
+                    <p>
+                        {loading ? null : userContext ? userContext.user : null}
+                    </p>
                 </div>
             </Link>
         </nav>

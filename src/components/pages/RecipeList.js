@@ -5,11 +5,12 @@ import Loading from "../Loading";
 
 const RecipeList = ({ user }) => {
     const [recipeList, setRecipeList] = useState([]);
-    const [total, setTotal] = useState(13);
+    const [total, setTotal] = useState(0);
     const [userContext, setUserContext] = useContext(UserContext);
     const observerTarget = useRef(null);
     const [pageNumber, setPageNumber] = useState(1);
     const [loading, setLoading] = useState(true);
+    const [moreContent, setMoreContent] = useState(true);
 
     const fetchData = async (page) => {
         try {
@@ -21,7 +22,7 @@ const RecipeList = ({ user }) => {
                     headers: {
                         "x-rciad-requested-id": "recipe",
                         "x-rciad-page": page,
-                        "x-rciad-limit": 6,
+                        "x-rciad-limit": 10,
                         "x-rciad-subscribed": user
                             ? user
                             : userContext
@@ -34,8 +35,8 @@ const RecipeList = ({ user }) => {
             );
 
             const data = await response.json();
-            setRecipeList((prevPage) => [...prevPage, ...data.page]);
             setTotal(data.count);
+            setRecipeList((prevPage) => [...prevPage, ...data.page]);
         } catch (error) {
             console.log(error);
         } finally {
@@ -50,7 +51,7 @@ const RecipeList = ({ user }) => {
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
-                if (entries[0].isIntersecting && recipeList.length < total) {
+                if (entries[0].isIntersecting && recipeList.length > 0) {
                     setPageNumber((prevPageNumber) => prevPageNumber + 1);
                 }
             },
@@ -66,10 +67,15 @@ const RecipeList = ({ user }) => {
                 observer.unobserve(observerTarget.current);
             }
         };
-    }, [observerTarget]);
+    }, [observerTarget, recipeList]);
 
     useEffect(() => {
-        fetchData(pageNumber);
+        if (recipeList.length < total) {
+            setMoreContent(true);
+            fetchData(pageNumber);
+        } else {
+            setMoreContent(false);
+        }
     }, [pageNumber]);
 
     return (
@@ -86,6 +92,7 @@ const RecipeList = ({ user }) => {
                 <Loading />
             )}
             <div ref={observerTarget}></div>
+            {moreContent ? <Loading /> : null}
         </div>
     );
 };

@@ -5,6 +5,7 @@ import { UserContext } from "../../context/userContext";
 import Step from "../step";
 import Ingredient from "../ingredient";
 import DragNDrop from "../drag-n-drop";
+import Loading from "../Loading";
 
 const CreateRecipe = () => {
     const [recipeContext, setRecipeContext] = useContext(RecipeContext);
@@ -144,7 +145,7 @@ const CreateRecipe = () => {
         });
         let data = await response.json();
         let newRecipeURL = `/${data.id.replace(":", "/")}`;
-        setRecipeURL(newRecipeURL);
+        window.location.href = newRecipeURL;
     };
 
     return (
@@ -188,7 +189,7 @@ const CreateRecipe = () => {
                     </form>
                 </>
             ) : loading ? (
-                <h1>Loading</h1>
+                <Loading />
             ) : (
                 <a href="/account">Please login</a>
             )}
