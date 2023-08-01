@@ -4,7 +4,6 @@ import Loading from "../Loading";
 
 const Recipe = () => {
     const [recipe, setRecipe] = useState({});
-    const [userInfo, setUserInfo] = useState({});
     const [loading, setLoading] = useState(true);
 
     const params = useParams();
@@ -33,35 +32,14 @@ const Recipe = () => {
         getRecipe();
     }, []);
 
-    const getUser = useCallback(async () => {
-        const headers = {
-            "x-rciad-requested-id": recipe.created_by,
-        };
-
-        const response = await fetch(
-            `${process.env.REACT_APP_MIDDLEWARE_URL}/user`,
-            {
-                method: "GET",
-                headers: headers,
-            }
-        );
-
-        const { details } = await response.json();
-        setUserInfo(details);
-    }, [recipe.created_by]);
-
-    useEffect(() => {
-        getUser();
-    }, [recipe.created_by]);
-
     return !loading ? (
         <div className="card">
             <a href="/recipe">
                 <p>View all Recipes</p>
             </a>
-            {userInfo && (
-                <a href={`/user/${userInfo.user}`}>
-                    <p>{userInfo.user}</p>
+            {recipe.author && (
+                <a href={`/user/${recipe.author}`}>
+                    <p>{recipe.author}</p>
                 </a>
             )}
             {recipe.created_at && (

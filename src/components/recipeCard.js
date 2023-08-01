@@ -1,27 +1,6 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
 
 const RecipeCard = ({ recipe }) => {
-    const [userInfo, setUserInfo] = useState({});
-    const getUser = useCallback(async () => {
-        const headers = {
-            "x-rciad-requested-id": recipe.created_by,
-        };
-
-        const response = await fetch(
-            `${process.env.REACT_APP_MIDDLEWARE_URL}/user`,
-            {
-                method: "GET",
-                headers: headers,
-            }
-        );
-
-        const { details } = await response.json();
-        setUserInfo(details);
-    }, [recipe.created_by]);
-    useEffect(() => {
-        getUser();
-    }, []);
-
     const timeSince = (date) => {
         const now = new Date();
         const then = new Date(date);
@@ -42,8 +21,8 @@ const RecipeCard = ({ recipe }) => {
 
     return (
         <div className="card">
-            <a href={userInfo && userInfo.user && `/user/${userInfo.user}`}>
-                <p>{userInfo && userInfo.user && userInfo.user}</p>
+            <a href={recipe.author && `/user/${recipe.author}`}>
+                <p>{recipe.author && recipe.author}</p>
             </a>
             <p className="time-stamp">{timeSince(recipe.created_at)}</p>
             <a href={recipe.id && `/${recipe.id.replace(":", "/")}`}>
