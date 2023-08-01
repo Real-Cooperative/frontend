@@ -291,3 +291,7 @@ textarea:focus-visible {
         opacity: 1;
     }
 }
+
+.time-stamp {
+    font-size: 80%;
+}
