@@ -9,6 +9,7 @@ const Navbar = () => {
     const getMe = useCallback(async (token) => {
         try {
             if (!token) {
+                setUserContext(null);
                 return;
             }
             let url = `${process.env.REACT_APP_MIDDLEWARE_URL}/me`;
@@ -24,11 +25,12 @@ const Navbar = () => {
             setUserContext(details);
         } catch (error) {
             console.log(error);
+        } finally {
+            setLoading(false);
         }
     });
     useEffect(() => {
         getMe(localStorage.getItem("token"));
-        setLoading(false);
     }, []);
 
     return (
@@ -51,7 +53,11 @@ const Navbar = () => {
             <Link to="/account">
                 <div className="navbar-button">
                     <p>
-                        {loading ? null : userContext ? userContext.user : null}
+                        {loading
+                            ? null
+                            : userContext
+                            ? userContext.user
+                            : "Login"}
                     </p>
                 </div>
             </Link>
