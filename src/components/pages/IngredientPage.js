@@ -54,7 +54,7 @@ const Ingredient = () => {
 
     return (
         <div className="card">
-            <h1>{name}</h1>
+            <h1>{ingredient.name && ingredient.name}</h1>
             {ingredient && <h2>Recipes using this ingredient</h2>}
             {relationships &&
                 relationships.map((recipe, index) => {
