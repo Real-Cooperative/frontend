@@ -42,9 +42,6 @@ const Ingredient = (props) => {
                     <input
                         required
                         id={"quantity-" + ingredientKey}
-                        min={0}
-                        step={"any"}
-                        type="number"
                         name={"ingredient-" + ingredientKey}
                         placeholder="0"
                     />
