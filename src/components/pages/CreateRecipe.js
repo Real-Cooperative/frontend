@@ -113,24 +113,25 @@ const CreateRecipe = () => {
         submitRecipe(data);
     };
 
-    async function uploadFiles(form) {
-        let attachment = {};
-        let formData = new FormData();
-        formData.append("attachment", form);
-        let token = localStorage.getItem("token");
-        await fetch(`${process.env.REACT_APP_MIDDLEWARE_URL}/upload`, {
-            cache: "no-store",
-            method: "POST",
-            headers: {
-                Authentication: "Bearer " + token,
-            },
-            body: formData,
-        })
-            .then((res) => res.text())
-            .then((data) => (attachment = { name: form.name, url: data }));
+    // TODO: Add a new route to the middleware to handle file uploads to a bucket
+    // async function uploadFiles(form) {
+    //     let attachment = {};
+    //     let formData = new FormData();
+    //     formData.append("attachment", form);
+    //     let token = localStorage.getItem("token");
+    //     await fetch(`${process.env.REACT_APP_MIDDLEWARE_URL}/upload`, {
+    //         cache: "no-store",
+    //         method: "POST",
+    //         headers: {
+    //             Authentication: "Bearer " + token,
+    //         },
+    //         body: formData,
+    //     })
+    //         .then((res) => res.text())
+    //         .then((data) => (attachment = { name: form.name, url: data }));
 
-        return attachment;
-    }
+    //     return attachment;
+    // }
 
     const submitRecipe = async (form) => {
         let url = `${process.env.REACT_APP_MIDDLEWARE_URL}/post`;
@@ -154,27 +155,30 @@ const CreateRecipe = () => {
                 <>
                     <h1>Create a Recipe</h1>
                     <form onSubmit={handleSubmit}>
+                        {/*
                         <div className="form-header">
+                            
                             <div className="form-header--col">
-                                <div className="form-group">
-                                    <input
-                                        required
-                                        id="name"
-                                        type="text"
-                                        name="name"
-                                    />
-                                    <label htmlFor="name">Name</label>
-                                </div>
-                                <label htmlFor="description">Description</label>
-                                <textarea
-                                    rows={4}
-                                    id="description"
-                                    type="text"
-                                    name="description"
-                                />
-                            </div>
-                            <DragNDrop />
+                            */}
+                        <div className="form-group">
+                            <input required id="name" type="text" name="name" />
+                            <label htmlFor="name">Name</label>
                         </div>
+                        <label htmlFor="description">Description</label>
+                        <textarea
+                            rows={4}
+                            id="description"
+                            type="text"
+                            name="description"
+                        />
+                        {/*
+                            </div>
+
+                            Restore once proper image upload is implemented
+                            <DragNDrop />
+                            
+                        </div>
+                        */}
                         <h3>Ingredients</h3>
                         {ingredients}
                         <button type="button" onClick={() => addIngredient()}>
