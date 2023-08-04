@@ -21,7 +21,6 @@ const Navbar = () => {
                 },
             });
             let { details } = await response.json();
-            console.log(details);
             setUserContext(details);
         } catch (error) {
             console.log(error);

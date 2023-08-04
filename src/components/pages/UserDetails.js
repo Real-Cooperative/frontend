@@ -2,6 +2,7 @@ import React, { useCallback, useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { UserContext } from "../../context/userContext";
 import RecipeList from "./RecipeList";
+import { setMetaDescription, setMetaTitle } from "../../SEO/meta";
 
 const UserDetails = () => {
     const [userInfo, setUserInfo] = useState({});
@@ -67,6 +68,14 @@ const UserDetails = () => {
         };
         getUser();
     }, []);
+
+    useEffect(() => {
+        if (userInfo.user) {
+            console.log(userInfo);
+            setMetaDescription(`Recipes by ${userInfo.user}.`);
+            setMetaTitle(`${userInfo.user}'s Recipes`);
+        }
+    }, [userInfo]);
 
     return (
         <>

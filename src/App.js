@@ -7,6 +7,7 @@ const UserDetails = lazy(() => import("./components/pages/UserDetails"));
 const Ingredient = lazy(() => import("./components/pages/IngredientPage"));
 const ResetPassword = lazy(() => import("./components/pages/ResetPassword"));
 import Loading from "./components/Loading";
+import EditDetails from "./components/EditDetails";
 
 const App = () => {
     return (
@@ -50,6 +51,14 @@ const App = () => {
                     element={
                         <Suspense fallback={<Loading />}>
                             <Account />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path="/account/edit"
+                    element={
+                        <Suspense fallback={<Loading />}>
+                            <EditDetails />
                         </Suspense>
                     }
                 />

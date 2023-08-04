@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { setMetaDescription, setMetaTitle } from "../../SEO/meta";
 
 const Ingredient = () => {
     const [ingredient, setIngredient] = useState(null);
@@ -23,7 +24,7 @@ const Ingredient = () => {
         );
 
         const { page } = await response.json();
-        setIngredient(page);
+        setIngredient(page[0]);
     }, [type, name]);
 
     const getRelationships = useCallback(async () => {
@@ -52,9 +53,16 @@ const Ingredient = () => {
         getRelationships();
     }, [getIngredient, getRelationships]);
 
+    useEffect(() => {
+        if (ingredient) {
+            setMetaTitle(`Recipes using ${ingredient.name}`);
+            setMetaDescription(`Recipes using ${ingredient.name}`);
+        }
+    }, [ingredient]);
+
     return (
         <div className="card">
-            <h1>{ingredient.name && ingredient.name}</h1>
+            <h1>{ingredient && ingredient.name}</h1>
             {ingredient && <h2>Recipes using this ingredient</h2>}
             {relationships &&
                 relationships.map((recipe, index) => {

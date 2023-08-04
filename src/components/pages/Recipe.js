@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import Loading from "../Loading";
+import { setMetaDescription, setMetaTitle } from "../../SEO/meta";
 
 const Recipe = () => {
     const [recipe, setRecipe] = useState({});
@@ -31,6 +32,13 @@ const Recipe = () => {
         };
         getRecipe();
     }, []);
+
+    useEffect(() => {
+        setMetaTitle(recipe.name ? recipe.name : "Recipe");
+        setMetaDescription(
+            recipe.description ? recipe.description : recipe.name
+        );
+    }, [recipe]);
 
     return !loading ? (
         <div className="card">

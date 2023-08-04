@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import { UserContext } from "../../context/userContext";
 import RecipeCard from "../recipeCard";
 import Loading from "../Loading";
+import { setMetaDescription, setMetaTitle } from "../../SEO/meta";
 
 const RecipeList = ({ user }) => {
     const [recipeList, setRecipeList] = useState([]);
@@ -46,6 +47,8 @@ const RecipeList = ({ user }) => {
 
     useEffect(() => {
         fetchData(pageNumber);
+        setMetaTitle("Recipes");
+        setMetaDescription("Recipes");
     }, []);
 
     useEffect(() => {

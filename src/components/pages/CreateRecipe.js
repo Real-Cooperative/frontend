@@ -6,6 +6,7 @@ import Step from "../step";
 import Ingredient from "../ingredient";
 import DragNDrop from "../drag-n-drop";
 import Loading from "../Loading";
+import { setMetaDescription, setMetaTitle } from "../../SEO/meta";
 
 const CreateRecipe = () => {
     const [recipeContext, setRecipeContext] = useContext(RecipeContext);
@@ -26,6 +27,8 @@ const CreateRecipe = () => {
         getContext();
         addIngredient();
         addStep();
+        setMetaTitle("Create a Recipe");
+        setMetaDescription("Create a recipe");
     }, []);
 
     useEffect(() => {

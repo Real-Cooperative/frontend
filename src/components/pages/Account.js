@@ -3,7 +3,7 @@ import Login from "../login";
 import Signup from "../signup";
 import MyDetails from "../MyDetails";
 import { UserContext } from "../../context/userContext";
-import Loading from "../Loading";
+import { setMetaDescription, setMetaTitle } from "../../SEO/meta";
 
 const Account = () => {
     const [activeTab, setActiveTab] = useState("login");
@@ -35,6 +35,9 @@ const Account = () => {
             setLoading(false);
         }
     }, [userContext]);
+
+    setMetaDescription("Account page");
+    setMetaTitle("Account");
 
     return (
         <div className="account-container card">
