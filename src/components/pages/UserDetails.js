@@ -70,17 +70,17 @@ const UserDetails = () => {
     }, []);
 
     useEffect(() => {
-        if (userInfo.user) {
+        if (userInfo.username) {
             console.log(userInfo);
-            setMetaDescription(`Recipes by ${userInfo.user}.`);
-            setMetaTitle(`${userInfo.user}'s Recipes`);
+            setMetaDescription(`Recipes by ${userInfo.username}.`);
+            setMetaTitle(`${userInfo.username}'s Recipes`);
         }
     }, [userInfo]);
 
     return (
         <>
             <div className="card">
-                <h1>{userInfo.user}</h1>
+                <h1>{userInfo.username}</h1>
                 <button onClick={handleSubscription}>Subscribe</button>
                 <p>
                     Member Since:{" "}

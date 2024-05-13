@@ -34,7 +34,7 @@ const RecipeList = ({ user }) => {
                     },
                 }
             );
-
+            if (!response.ok) throw new Error(await response.text());
             const data = await response.json();
             setTotal(data.count);
             setRecipeList((prevPage) => [...prevPage, ...data.page]);

@@ -25,13 +25,17 @@ const Signup = () => {
                 body: JSON.stringify(data),
             });
 
+            if (!response.ok) throw new Error(await response.text());
+
             let res = await response.json();
             if (res.status === "Error") throw new Error(res.message);
             localStorage.setItem("token", res.token);
             window.location.reload();
         } catch (e) {
-            console.error(e);
-            errorContainer.current.innerHTML = `<p>${e.message}</p>`;
+            errorContainer.current.innerHTML = `<p>${e.message.replaceAll(
+                '"',
+                ""
+            )}</p>`;
         } finally {
             setLoading(false);
         }

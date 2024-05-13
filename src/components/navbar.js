@@ -55,7 +55,7 @@ const Navbar = () => {
                         {loading
                             ? null
                             : userContext
-                            ? userContext.user
+                            ? userContext.username
                             : "Login"}
                     </p>
                 </div>

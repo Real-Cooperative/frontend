@@ -64,7 +64,7 @@ const MyDetails = ({ user }) => {
                     Logout
                 </button>
                 <button className="edit-btn">Edit</button>
-                <p>Username: {user.user}</p>
+                <p>Username: {user.username}</p>
                 <p>Email: {user.email}</p>
                 <p>
                     Joined:{" "}
